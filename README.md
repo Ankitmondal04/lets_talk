@@ -1,23 +1,40 @@
 # Lets_Talk
-Real-time chat platform supporting dynamic room creation and live messaging, developed entirely in Kotlin using Jetpack Compose and a Ktor backend.
 
-# Project Structure
-## Modules
+Lets_Talk is a real-time chat platform enabling dynamic room creation and instant messaging, built entirely in Kotlin with Jetpack Compose for Android and a Ktor backend.
 
-- **app** — Android client built with Jetpack Compose, Ktor client, WebSockets
-- **server** — Ktor server with MongoDB, JWT authentication, WebSocket real-time chat
+## Features
 
-## Tech Stack
+- 🗨️ **Real-time Chat:** Live messaging powered by WebSockets.
+- 🏗️ **Dynamic Room Creation:** Instantly create and join chat rooms.
+- 🛡️ **Secure Authentication:** JWT token-based authentication with password hashing (BCrypt).
+- 📱 **Modern Android UI:** Built from the ground up with Jetpack Compose.
+- 🗄️ **Scalable Backend:** Ktor server with MongoDB for persistent chat history.
 
-| Layer | Technology |
-|-------|-----------|
-| Android UI | Jetpack Compose |
-| Networking | Ktor Client |
-| Backend | Ktor Server + Netty |
-| Database | MongoDB |
-| Auth | JWT + BCrypt |
-| Real-time | WebSockets |
+## Project Structure
+
+### Modules
+
+- **app/** — Android client (Jetpack Compose, Ktor client, WebSockets)
+- **server/** — Backend server (Ktor Server, MongoDB, JWT auth, WebSockets)
+
+### Tech Stack
+
+| Layer        | Technology              |
+|--------------|------------------------|
+| Android UI   | Jetpack Compose        |
+| Networking   | Ktor Client            |
+| Backend      | Ktor Server + Netty    |
+| Database     | MongoDB                |
+| Auth         | JWT + BCrypt           |
+| Real-time    | WebSockets             |
 
 ## Getting Started
 
-See [Server README](server/README.md) and [App README](app/README.md) for setup instructions.
+For instructions to run and contribute to Lets_Talk:
+
+- See the detailed [Server Guide](server/README.md)
+- See the [App Setup](app/README.md)
+
+---
+
+**License:** MIT (or your license if different – specify here).
