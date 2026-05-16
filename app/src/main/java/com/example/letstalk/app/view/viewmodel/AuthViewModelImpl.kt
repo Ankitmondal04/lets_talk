@@ -48,6 +48,7 @@ class AuthViewModelImpl(
                 result.data?.token?.let { token ->
                     tokenManager.saveToken(token)
                 }
+                tokenManager.saveUserName(_userName.value)
             }
             _authState.value = result
         }
@@ -66,6 +67,7 @@ class AuthViewModelImpl(
                 result.data?.token?.let { token ->
                     tokenManager.saveToken(token)
                 }
+                tokenManager.saveUserName(_userName.value)
             }
             _authState.value = result
         }

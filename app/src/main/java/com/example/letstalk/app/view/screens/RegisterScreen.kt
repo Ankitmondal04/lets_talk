@@ -28,7 +28,8 @@ import com.example.letstalk.app.view.viewmodel.AuthViewModelImpl
 @Composable
 fun RegisterScreen(
     navController: NavController,
-    viewModel: AuthViewModelImpl
+    viewModel: AuthViewModelImpl,
+    onRegisterSuccess: (String) -> Unit
 ) {
     val context = LocalContext.current
 
@@ -39,6 +40,7 @@ fun RegisterScreen(
     LaunchedEffect(authState) {
         when(authState) {
             is Resource.Success -> {
+                onRegisterSuccess(viewModel.userName.value)
                 navController.navigate("home") {
                     popUpTo("register") {
                         inclusive = true

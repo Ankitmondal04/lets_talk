@@ -21,7 +21,6 @@ import androidx.navigation.NavController
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.letstalk.app.util.Resource
 import com.example.letstalk.app.view.viewmodel.AuthViewModelImpl
@@ -29,7 +28,8 @@ import com.example.letstalk.app.view.viewmodel.AuthViewModelImpl
 @Composable
 fun LoginScreen(
     navController: NavController,
-    viewModel: AuthViewModelImpl
+    viewModel: AuthViewModelImpl,
+    onLoginSuccess: (String) -> Unit
 ) {
     val context = LocalContext.current
 
@@ -40,8 +40,9 @@ fun LoginScreen(
     LaunchedEffect(authState) {
         when(authState) {
             is Resource.Success -> {
+                onLoginSuccess(viewModel.userName.value)  // add this
                 navController.navigate("home") {
-                    popUpTo("login") { inclusive = true}
+                    popUpTo("login") { inclusive = true }
                 }
             }
             is Resource.Error -> {

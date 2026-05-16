@@ -68,6 +68,8 @@ dependencies {
     //To store locally
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
+    implementation("androidx.compose.material:material-icons-extended:1.6.7")
+
 //    implementation("org.bson:bson-kotlinx:4.10.1")
 
     testImplementation(libs.junit)

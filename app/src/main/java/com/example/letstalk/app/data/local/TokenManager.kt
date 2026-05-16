@@ -35,4 +35,18 @@ class TokenManager(
             preferences.remove(TOKEN_KEY)
         }
     }
+
+    private val USER_NAME_KEY = stringPreferencesKey("user_name")
+
+    suspend fun saveUserName(userName: String) {
+        context.dataStore.edit { preferences ->
+            preferences[USER_NAME_KEY] = userName
+        }
+    }
+
+    suspend fun getUserName(): String? {
+        return context.dataStore.data
+            .map { preferences -> preferences[USER_NAME_KEY] }
+            .firstOrNull()
+    }
 }

@@ -1,10 +1,13 @@
-package com.example.letstalk.app.navigation
-
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.NavHost
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.letstalk.app.data.local.TokenManager
 import com.example.letstalk.app.view.screens.ChatScreen
 import com.example.letstalk.app.view.screens.HomeScreen
 import com.example.letstalk.app.view.screens.LoginScreen
@@ -19,27 +22,55 @@ fun NavGraph(
     navController: NavHostController,
     authViewModel: AuthViewModelImpl,
     homeViewModel: HomeViewModelImpl,
-    chatViewModel: ChatViewModelImpl
+    chatViewModel: ChatViewModelImpl,
+    tokenManager: TokenManager
 ) {
+    // Store userName once after login so all screens can access it
+    var userName by remember { mutableStateOf("") }
+
+    LaunchedEffect(Unit) {
+        tokenManager.getUserName()?.let { userName = it }
+    }
+
     NavHost(
         navController = navController,
         startDestination = "splash"
     ) {
         composable("splash") {
-            SplashScreen(navController, authViewModel)
-        }
-        composable("register") {
-            RegisterScreen(navController, authViewModel)
+            SplashScreen(
+                navController = navController,
+                viewModel = authViewModel
+            )
         }
         composable("login") {
-            LoginScreen(navController, authViewModel)
+            LoginScreen(
+                navController = navController,
+                viewModel = authViewModel,
+                onLoginSuccess = { name -> userName = name }
+            )
+        }
+        composable("register") {
+            RegisterScreen(
+                navController = navController,
+                viewModel = authViewModel,
+                onRegisterSuccess = { name -> userName = name }
+            )
         }
         composable("home") {
-            HomeScreen(navController, homeViewModel)
+            HomeScreen(
+                navController = navController,
+                viewModel = homeViewModel,
+                userName = userName
+            )
         }
         composable("chat/{roomLabel}") { backStackEntry ->
             val roomLabel = backStackEntry.arguments?.getString("roomLabel") ?: return@composable
-            ChatScreen() //navController and roomLabel in the constructor
+            ChatScreen(
+                navController = navController,
+                viewModel = chatViewModel,
+                userName = userName,
+                roomLabel = roomLabel
+            )
         }
     }
 }
